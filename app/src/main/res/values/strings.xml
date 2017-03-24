@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Places</string>
+    <string name="save">Add</string>
+    <string name="action_settings">Add</string>
+    <string name="title_activity_display_info">DisplayInfo</string>
+    <string name="bearing">Calculation</string>
+    <string name="title_activity_calculations">Calculations</string>
+    <string name="defaulturl">http://10.0.2.2:9090</string>
+</resources>
