@@ -28,12 +28,20 @@ public class MethodInformation {
     public String method;
     public Object[] params;
     public MainActivity parent;
+    public DisplayInfo parent2;
     public String urlString;
     public String resultAsJson;
 
     MethodInformation(MainActivity parent, String urlString, String method, Object[] params){
         this.method = method;
         this.parent = parent;
+        this.urlString = urlString;
+        this.params = params;
+        this.resultAsJson = "{}";
+    }
+    MethodInformation(DisplayInfo parent, String urlString, String method, Object[] params){
+        this.method = method;
+        this.parent2 = parent;
         this.urlString = urlString;
         this.params = params;
         this.resultAsJson = "{}";

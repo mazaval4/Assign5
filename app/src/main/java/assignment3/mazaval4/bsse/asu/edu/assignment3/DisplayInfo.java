@@ -45,10 +45,22 @@ import java.io.OutputStreamWriter;
 
 public class DisplayInfo extends AppCompatActivity {
 
+    private String url = "http://10.0.2.2:9090";
     final Context context = this;
     PlaceLibrary lib = PlaceLibrary.getInstance();
+    public EditText editText1 = (EditText)findViewById(R.id.editText1);
+//    EditText editText2 = (EditText)findViewById(R.id.editText2);
+//    EditText editText3 = (EditText)findViewById(R.id.editText3);
+//    EditText editText4 = (EditText)findViewById(R.id.editText4);
+//    EditText editText5 = (EditText)findViewById(R.id.editText5);
+//    TextView editText6 = (TextView) findViewById(R.id.editText6);
+//    EditText editText7 = (EditText)findViewById(R.id.editText7);
+//    EditText editText8 = (EditText)findViewById(R.id.editText8);
+//    EditText editText9 = (EditText)findViewById(R.id.editText9);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_info);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -126,29 +138,20 @@ public class DisplayInfo extends AppCompatActivity {
 
     }
 
+
     public void fillStuff(String value){
-        PlaceDescription pd;
+
+        try{
+            android.util.Log.w(this.getClass().getSimpleName(),"In fill stuff ");
+            MethodInformation mi = new MethodInformation(this, url,"get",
+                    new String[]{value});
+            AsyncCollectionConnect ac = (AsyncCollectionConnect) new AsyncCollectionConnect().execute(mi);
+        } catch (Exception ex){
+            android.util.Log.w(this.getClass().getSimpleName(),"Exception creating adapter: "+
+                    ex.getMessage());
+        }
 
 
-        pd = lib.getPlaceDesc(value);
-        EditText editText1 = (EditText)findViewById(R.id.editText1);
-        editText1.setText(pd.getAddressTitle());
-        EditText editText2 = (EditText)findViewById(R.id.editText2);
-        editText2.setText(pd.getAddressStreet());
-        EditText editText3 = (EditText)findViewById(R.id.editText3);
-        editText3.setText(pd.getElevation());
-        EditText editText4 = (EditText)findViewById(R.id.editText4);
-        editText4.setText(pd.getLatitude());
-        EditText editText5 = (EditText)findViewById(R.id.editText5);
-        editText5.setText(pd.getLongitude());
-        TextView editText6 = (TextView) findViewById(R.id.editText6);
-        editText6.setText(pd.getName());
-        EditText editText7 = (EditText)findViewById(R.id.editText7);
-        editText7.setText(pd.getImage());
-        EditText editText8 = (EditText)findViewById(R.id.editText8);
-        editText8.setText(pd.getDescription());
-        EditText editText9 = (EditText)findViewById(R.id.editText9);
-        editText9.setText(pd.getCategory());
 
 
     }

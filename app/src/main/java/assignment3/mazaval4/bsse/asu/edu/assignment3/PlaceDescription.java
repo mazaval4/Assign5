@@ -54,17 +54,25 @@ public class PlaceDescription {
         this.category = category;
     }
 
-//    Student(String jsonStr){
-//        try{
-//            JSONObject jo = new JSONObject(jsonStr);
-//            name = jo.getString("name");
-//            studentid = jo.getInt("studentid");
-//
-//        }catch (Exception ex){
-//            System.out.println(this.getClass().getSimpleName()+
-//                    ": error converting from json string");
-//        }
-//    }
+    PlaceDescription(JSONObject jsonObj){
+        try{
+            System.out.println("Place description constructor with jsonObj: "+
+                    jsonObj.toString());
+            addressTitle = jsonObj.getString("address-title");
+            addressStreet = jsonObj.getString("address-street");
+            elevation = jsonObj.getDouble("elevation");
+            latitude = jsonObj.getDouble("latitude");
+            longitude = jsonObj.getDouble("longitude");
+            name = jsonObj.getString("name");
+            image = jsonObj.getString("image");
+            description = jsonObj.getString("description");
+            category = jsonObj.getString("category");
+
+        }catch (Exception ex){
+            System.out.println(this.getClass().getSimpleName()+
+                    ": error converting from json string");
+        }
+    }
 
     public String getLongitude() {
         return Double.toString(longitude);
