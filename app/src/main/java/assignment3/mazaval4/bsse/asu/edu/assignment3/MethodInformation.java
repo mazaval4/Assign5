@@ -29,6 +29,7 @@ public class MethodInformation {
     public Object[] params;
     public MainActivity parent;
     public DisplayInfo parent2;
+    public AddPlace parent3;
     public String urlString;
     public String resultAsJson;
 
@@ -42,6 +43,14 @@ public class MethodInformation {
     MethodInformation(DisplayInfo parent, String urlString, String method, Object[] params){
         this.method = method;
         this.parent2 = parent;
+        this.urlString = urlString;
+        this.params = params;
+        this.resultAsJson = "{}";
+    }
+
+    MethodInformation(AddPlace parent, String urlString, String method, Object[] params){
+        this.method = method;
+        this.parent3 = parent;
         this.urlString = urlString;
         this.params = params;
         this.resultAsJson = "{}";

@@ -46,17 +46,18 @@ import java.io.OutputStreamWriter;
 public class DisplayInfo extends AppCompatActivity {
 
     private String url = "http://10.0.2.2:9090";
+    String deleteDis;
     final Context context = this;
     PlaceLibrary lib = PlaceLibrary.getInstance();
-    public EditText editText1 = (EditText)findViewById(R.id.editText1);
-//    EditText editText2 = (EditText)findViewById(R.id.editText2);
-//    EditText editText3 = (EditText)findViewById(R.id.editText3);
-//    EditText editText4 = (EditText)findViewById(R.id.editText4);
-//    EditText editText5 = (EditText)findViewById(R.id.editText5);
-//    TextView editText6 = (TextView) findViewById(R.id.editText6);
-//    EditText editText7 = (EditText)findViewById(R.id.editText7);
-//    EditText editText8 = (EditText)findViewById(R.id.editText8);
-//    EditText editText9 = (EditText)findViewById(R.id.editText9);
+    public EditText editText1;
+    EditText editText2;
+    EditText editText3;
+    EditText editText4;
+    EditText editText5;
+    TextView editText6;
+    EditText editText7;
+    EditText editText8;
+    EditText editText9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,15 @@ public class DisplayInfo extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String value = null;
+        editText1 = (EditText)findViewById(R.id.editText1);
+        editText2 = (EditText)findViewById(R.id.editText2);
+        editText3 = (EditText)findViewById(R.id.editText3);
+        editText4 = (EditText)findViewById(R.id.editText4);
+        editText5 = (EditText)findViewById(R.id.editText5);
+        editText6 = (TextView)findViewById(R.id.editText6);
+        editText7 = (EditText)findViewById(R.id.editText7);
+        editText8 = (EditText)findViewById(R.id.editText8);
+        editText9 = (EditText)findViewById(R.id.editText9);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -76,24 +86,13 @@ public class DisplayInfo extends AppCompatActivity {
 
         fillStuff(value);
 
-        Button saveButton= (Button) findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Context context = getApplicationContext();
-                String text = "Item Saved";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-                saveStuff();
-            }
-        });
 
-        Button deleteButton= (Button) findViewById(R.id.deleteButton);
+        final Button deleteButton= (Button) findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final TextView name = (TextView) findViewById(R.id.editText6);
+
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
 
@@ -108,14 +107,12 @@ public class DisplayInfo extends AppCompatActivity {
                             public void onClick(DialogInterface dialog,int id) {
                                 // if this button is clicked, close
                                 // current activity
-                                lib.removeObject(name.getText().toString());
+                                deleteDis = name.getText().toString();
                                 String text = "Item deleted";
                                 int duration = Toast.LENGTH_SHORT;
                                 Toast toast = Toast.makeText(context, text, duration);
                                 toast.show();
-                                lib.removeObject(name.getText().toString());
-                                JSONArray jsArray = new JSONArray(lib.getLibrary());
-                                android.util.Log.d("Json",jsArray.toString());
+                                deleteStuff(deleteDis);
 
                             }
                         })
@@ -156,40 +153,24 @@ public class DisplayInfo extends AppCompatActivity {
 
     }
 
-    public void saveStuff(){
-        PlaceDescription pd;
-        String addressTitle;
-        String addressStreet;
-        String name;
-        String image;
-        String description;
-        String category;
-        double elevation,latitude,longitude;
-        PlaceLibrary lib = PlaceLibrary.getInstance();
+    public void deleteStuff(String value){
 
-        EditText editText1 = (EditText)findViewById(R.id.editText1);
-        addressTitle = editText1.getText().toString();
-        EditText editText2 = (EditText)findViewById(R.id.editText2);
-        addressStreet = editText2.getText().toString();
-        EditText editText3 = (EditText)findViewById(R.id.editText3);
-        elevation = Double.valueOf(editText3.getText().toString());
-        EditText editText4 = (EditText)findViewById(R.id.editText4);
-        latitude = Double.valueOf(editText4.getText().toString());
-        EditText editText5 = (EditText)findViewById(R.id.editText5);
-        longitude = Double.valueOf(editText5.getText().toString());
-        TextView editText6 = (TextView) findViewById(R.id.editText6);
-        name = editText6.getText().toString();
-        EditText editText7 = (EditText)findViewById(R.id.editText7);
-        image = editText7.getText().toString();
-        EditText editText8 = (EditText)findViewById(R.id.editText8);
-        description = editText8.getText().toString();
-        EditText editText9 = (EditText)findViewById(R.id.editText9);
-        category = editText9.getText().toString();
+        try{
+            android.util.Log.w(this.getClass().getSimpleName(),"In delete stuff ");
+            MethodInformation mi = new MethodInformation(this, url,"remove",
+                    new String[]{value});
+            AsyncCollectionConnect ac = (AsyncCollectionConnect) new AsyncCollectionConnect().execute(mi);
+        } catch (Exception ex){
+            android.util.Log.w(this.getClass().getSimpleName(),"Exception creating adapter: "+
+                    ex.getMessage());
+        }
 
-        pd = new PlaceDescription(addressTitle,addressStreet,elevation,latitude,longitude,name,image,description,category);
-        lib.addObject(pd);
+
+
 
     }
+
+
 
 
 

@@ -44,6 +44,7 @@ import org.json.JSONArray;
 
 public class AddPlace extends AppCompatActivity {
     final Context context = this;
+    private String url = "http://10.0.2.2:9090";
     String [] options = { "School", "Travel", "Hike" };
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +100,15 @@ public class AddPlace extends AppCompatActivity {
         index = picker.getValue();
         category = options[index];
         pd = new PlaceDescription(addressTitle,addressStreet,elevation,latitude,longitude,name,image,description,category);
-        lib.addObject(pd);
+
+        try{
+            MethodInformation mi = new MethodInformation(this,url,"add",
+                    new Object[]{pd.toJson()});
+            AsyncCollectionConnect ac = (AsyncCollectionConnect) new AsyncCollectionConnect().execute(mi);
+        } catch (Exception ex){
+            android.util.Log.w(this.getClass().getSimpleName(),"Exception creating adapter: "+
+                    ex.getMessage());
+        }
 
 
     }

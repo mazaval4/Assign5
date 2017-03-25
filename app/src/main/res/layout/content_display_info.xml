@@ -191,24 +191,17 @@
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/textView2" />
 
-    <Button
-        android:text="Save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:id="@+id/saveButton"
-        android:layout_below="@+id/editText9"
-        android:layout_toEndOf="@+id/textView6" />
+
 
     <Button
         android:text="Delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/deleteButton"
-        android:layout_alignBaseline="@+id/saveButton"
-        android:layout_alignBottom="@+id/saveButton"
-        android:layout_toEndOf="@+id/saveButton"
-        android:layout_marginStart="47dp" />
+        android:layout_marginStart="62dp"
+        android:layout_below="@+id/editText9"
+        android:layout_alignStart="@+id/editText9"
+        android:layout_marginTop="33dp" />
 
 
 </RelativeLayout>

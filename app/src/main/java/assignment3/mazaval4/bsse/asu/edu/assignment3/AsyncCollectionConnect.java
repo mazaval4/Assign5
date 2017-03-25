@@ -74,18 +74,26 @@ public class AsyncCollectionConnect extends AsyncTask<MethodInformation, Integer
                     al.add(ja.getString(i));
                 }
                 android.util.Log.d(this.getClass().getSimpleName(), " Arraylist is " +al);
-//                res.parent.arrayAdapter.clear();
+                res.parent.arrayAdapter.clear();
                 for (int i = 0; i < al.size(); i++) {
                     res.parent.arrayAdapter.add(al.get(i));
+                    android.util.Log.d(this.getClass().getSimpleName(), " Value is " +al.get(i));
                 }
                 res.parent.arrayAdapter.notifyDataSetChanged();
             } else if (res.method.equals("get")) {
                 JSONObject jo = new JSONObject(res.resultAsJson);
-                PlaceDescription aStud = new PlaceDescription(jo.getJSONObject("result"));
+                PlaceDescription placeDesc = new PlaceDescription(jo.getJSONObject("result"));
 
-                res.parent2.editText1.setText("this is my text");
-//                res.parent.studentidET.setText((new Integer(aStud.studentid)).toString());
-//                res.parent.nameET.setText(aStud.name);
+                res.parent2.editText1.setText(placeDesc.getAddressTitle());
+                res.parent2.editText2.setText(placeDesc.getAddressStreet());
+                res.parent2.editText3.setText(placeDesc.getElevation());
+                res.parent2.editText4.setText(placeDesc.getLatitude());
+                res.parent2.editText5.setText(placeDesc.getLongitude());
+                res.parent2.editText6.setText(placeDesc.getName());
+                res.parent2.editText7.setText(placeDesc.getImage());
+                res.parent2.editText8.setText(placeDesc.getDescription());
+                res.parent2.editText9.setText(placeDesc.getCategory());
+
             } else if (res.method.equals("add")){
                 try{
                     // finished adding a student. refresh the list of students by going back to the server for names
@@ -95,7 +103,17 @@ public class AsyncCollectionConnect extends AsyncTask<MethodInformation, Integer
                     android.util.Log.w(this.getClass().getSimpleName(),"Exception processing getNames: "+
                             ex.getMessage());
                 }
+            } else if (res.method.equals("remove")){
+                try{
+                    // finished adding a student. refresh the list of students by going back to the server for names
+                    MethodInformation mi = new MethodInformation(res.parent, res.urlString, "getNames", new Object[]{ });
+                    AsyncCollectionConnect ac = (AsyncCollectionConnect) new AsyncCollectionConnect().execute(mi);
+                } catch (Exception ex){
+                    android.util.Log.w(this.getClass().getSimpleName(),"Exception processing getNames: "+
+                            ex.getMessage());
+                }
             }
+
         }catch (Exception ex){
             android.util.Log.d(this.getClass().getSimpleName(),"Exception: "+ex.getMessage());
         }

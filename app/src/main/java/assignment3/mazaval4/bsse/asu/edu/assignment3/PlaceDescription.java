@@ -161,16 +161,22 @@ public class PlaceDescription {
                 '}';
     }
 
-//    public JSONObject toJson(){
-//        JSONObject jo = new JSONObject();
-//        try{
-//            jo.put("name",name);
-//            jo.put("studentid",studentid);
-//            jo.put("takes",takes);
-//        }catch (Exception ex){
-//            System.out.println(this.getClass().getSimpleName()+
-//                    ": error converting to json");
-//        }
-//        return jo;
-//    }
+    public JSONObject toJson(){
+        JSONObject jo = new JSONObject();
+        try{
+            jo.put("address-title",addressTitle);
+            jo.put("address-street",addressStreet);
+            jo.put("elevation",elevation);
+            jo.put("latitude",latitude);
+            jo.put("longitude",longitude);
+            jo.put("name",name);
+            jo.put("image",image);
+            jo.put("description",description);
+            jo.put("category",category);
+        }catch (Exception ex){
+            System.out.println(this.getClass().getSimpleName()+
+                    ": error converting to json");
+        }
+        return jo;
+    }
 }

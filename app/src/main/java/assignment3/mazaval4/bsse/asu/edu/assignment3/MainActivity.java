@@ -81,6 +81,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        System.out.print("in on resume");
+
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("unknown");
+
+        lv = (ListView) findViewById(R.id.mobile_list);
+        arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_expandable_list_item_1,
+                names);
+        lv.setAdapter(arrayAdapter);
+
+        try{
+            MethodInformation mi = new MethodInformation(this, url,"getNames",
+                    new Object[]{});
+            AsyncCollectionConnect ac = (AsyncCollectionConnect) new AsyncCollectionConnect().execute(mi);
+        } catch (Exception ex){
+            android.util.Log.w(this.getClass().getSimpleName(),"Exception creating adapter: "+
+                    ex.getMessage());
+        }
+
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
